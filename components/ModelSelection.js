@@ -10,8 +10,9 @@ function ModelSelection() {
   const { data: modelOptions, isLoading } = useSWR("models", fetchModels);
 
   const { data: model, mutate: setModel } = useSWR("model", {
-    fallbackData: "text-davinci-003",
+    fallbackData: "gpt-3.5-turbo",
   });
+
   return (
     <div className="my-2">
       <Select
@@ -26,7 +27,6 @@ function ModelSelection() {
         onChange={(e) => setModel(e.value)}
         placeholder={model}
         defaultValue={model}
-        clas
       />
     </div>
   );

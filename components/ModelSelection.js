@@ -12,6 +12,7 @@ function ModelSelection() {
   const { data: model, mutate: setModel } = useSWR("model", {
     fallbackData: "gpt-3.5-turbo",
   });
+
   return (
     <div className="my-2">
       <Select

@@ -25,7 +25,8 @@ export default async function handler(req, res) {
     user: {
       _id: "ChatGPT",
       name: "ChatGPT",
-      avatar: "https://links.papareact.com/89k",
+      avatar:
+        "https://seeklogo.com/images/C/chatgpt-logo-02AFA704B5-seeklogo.com.png",
     },
   };
 

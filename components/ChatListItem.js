@@ -7,7 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
 
-export default function ChatListItem({ chat }) {
+export default function ChatListItem({ chat, toggleCollapse }) {
   const pathname = usePathname();
   const router = useRouter();
   const { data: session } = useSession();
@@ -33,16 +33,22 @@ export default function ChatListItem({ chat }) {
       className={`chatRow ${active && "bg-gray-700"} mt-[4px]`}
     >
       <ChatBubbleLeftIcon className="h-5 w-5" />
-      <p className="flex-1 md:inline-flex truncate">
-        {messages?.docs[messages?.docs.length - 1]?.data().text || "New chat"}
-      </p>
-      {active && (
-        <TrashIcon
-          onClick={removeChat}
-          className="h-5 w-5 text-gray-200
+
+      {!toggleCollapse ? (
+        <>
+          <p className="flex-1 md:inline-flex truncate">
+            {messages?.docs[messages?.docs.length - 1]?.data().text ||
+              "New chat"}
+          </p>
+          {active && (
+            <TrashIcon
+              onClick={removeChat}
+              className="h-5 w-5 text-gray-200
          hover:text-red-700"
-        />
-      )}
+            />
+          )}
+        </>
+      ) : null}
     </Link>
   );
 }

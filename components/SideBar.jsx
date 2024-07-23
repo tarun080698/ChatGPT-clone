@@ -17,7 +17,6 @@ import Loading from "./loading";
 
 function SideBar() {
   const [toggleCollapse, setToggleCollapse] = useState(false);
-  const [isCollapsible, setIsCollapsible] = useState(false);
   const { data: session } = useSession();
   const [chats, loading, error] = useCollection(
     session &&
@@ -27,20 +26,9 @@ function SideBar() {
       )
   );
 
-  const wrapperClasses = classNames(
-    "p-2 flex flex-col h-screen overflow-hidden bg-light flex justify-between flex-col",
-    {
-      ["w-80"]: !toggleCollapse,
-      ["w-20"]: toggleCollapse,
-    }
-  );
   const collapseIconClasses = classNames("p-4 rounded bg-light-lighter", {
     "rotate-180": toggleCollapse,
   });
-
-  const onMouseOver = () => {
-    setIsCollapsible(!isCollapsible);
-  };
 
   const handleSidebarToggle = () => {
     setToggleCollapse(!toggleCollapse);
@@ -48,23 +36,17 @@ function SideBar() {
 
   return (
     <div
-      className={wrapperClasses}
-      onMouseEnter={onMouseOver}
-      onMouseLeave={onMouseOver}
-      style={{ transition: "width 300ms cubic-bezier(0.2, 0, 0, 1) 0s" }}
-      // className="p-2 flex flex-col h-screen overflow-hidden"
+      className={`p-2 flex flex-col h-screen overflow-hidden bg-light justify-between transition-width ease-in-out duration-300 ${
+        toggleCollapse ? "w-20" : "w-full"
+      }`}
     >
       <div>
         <div className="flex items-center justify-between">
           {!toggleCollapse && <NewChat />}
-          {isCollapsible && (
-            <button
-              className={collapseIconClasses}
-              onClick={handleSidebarToggle}
-            >
-              <ChevronDoubleLeftIcon className="text-[#cfd1e6] w-6 h-6" />
-            </button>
-          )}
+          <button className={collapseIconClasses} onClick={handleSidebarToggle}>
+            <ChevronDoubleLeftIcon className="text-[#cfd1e6] w-6 h-6" />
+          </button>
+          {/* )} */}
         </div>
         {!toggleCollapse && (
           <div className="hidden sm:inline">
@@ -82,7 +64,11 @@ function SideBar() {
         ) : (
           <div className="overflow-y-hidden">
             {chats?.docs?.map((chat) => (
-              <ChatListItem key={chat.id} chat={chat} />
+              <ChatListItem
+                key={chat.id}
+                chat={chat}
+                toggleCollapse={toggleCollapse}
+              />
             ))}
           </div>
         )}
@@ -103,9 +89,11 @@ function SideBar() {
               </div>
             )}
           </div>
-          <div onClick={() => signOut()}>
-            <ArrowLeftOnRectangleIcon className="h-12 w-6 mr-2 text-white cursor-pointer opacity-50 hover:opacity-100" />
-          </div>
+          {!toggleCollapse && (
+            <div onClick={() => signOut()}>
+              <ArrowLeftOnRectangleIcon className="h-12 w-6 mr-2 text-white cursor-pointer opacity-50 hover:opacity-100" />
+            </div>
+          )}
         </div>
       )}
     </div>

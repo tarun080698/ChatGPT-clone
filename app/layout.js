@@ -21,14 +21,15 @@ export default async function RootLayout({ children }) {
             <Login />
           ) : (
             <div className="flex">
-              <div className="bg-[#202123] h-screen overflow-y-auto">
+              <div className="bg-[#202123] h-screen overflow-y-auto max-w-sm hidden md:flex">
                 <SideBar />
               </div>
               {/* client notification  */}
-              <ClientProvider />
+
               <div className="bg-[#343541] flex-1">{children}</div>
             </div>
           )}
+          <ClientProvider />
         </SessionProvider>
       </body>
     </html>

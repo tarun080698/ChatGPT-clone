@@ -20,7 +20,7 @@ function NewChat() {
   };
   return (
     <div
-      className="w-full border-gray-700 border mb-2 rounded-lg p-4 text-sm flex items-center justify-center space-x-2 hover:bg-gray-700/70 cursor-pointer text-gray-300 transition-all duration-200 ease-out;"
+      className="sm:hidden md:flex w-full border-gray-700 border mb-2 rounded-lg p-4 text-sm flex items-center justify-center space-x-2 hover:bg-gray-700/70 cursor-pointer text-gray-300 transition-all duration-200 ease-out;"
       onClick={createNewChat}
     >
       <PlusIcon className="h-4 w-4" />

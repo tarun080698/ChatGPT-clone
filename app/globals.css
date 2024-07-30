@@ -10,6 +10,49 @@
   .chatRow {
     @apply rounded-lg py-4 pl-5 pr-1 text-sm flex items-center justify-between space-x-2 hover:bg-gray-700/70 cursor-pointer text-gray-300 transition-all duration-200 ease-out;
   }
+
+  pre,
+  ol,
+  ul {
+    @apply rounded-md bg-[#202123ad] p-2 mx-2 my-1;
+  }
+  ol,
+  ul {
+    counter-reset: list-counter;
+  }
+
+  pre > code {
+    @apply font-mono bg-transparent;
+  }
+
+  li {
+    @apply text-base;
+  }
+
+  ul li {
+    list-style: none; /* Remove default bullets */
+    counter-increment: list-counter; /* Increment counter */
+    position: relative;
+    padding-left: 1em; /* Space for the number */
+  }
+  ul li::before {
+    content: counter(list-counter) ". "; /* Add counter before the list item */
+    position: absolute;
+    left: 0;
+    color: white; /* Optional: style the number */
+  }
+
+  code {
+    @apply bg-[#202123] whitespace-pre-wrap p-1 rounded-lg;
+  }
+
+  p + pre {
+    @apply mt-4 font-mono;
+  }
+
+  pre + p {
+    @apply mt-4 font-mono;
+  }
 }
 
 *::-webkit-scrollbar {
